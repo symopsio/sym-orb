@@ -1,0 +1,38 @@
+description: >
+  Makes a Sym Request.
+
+docker:
+  - image: cimg/base:stable
+
+working_directory: /tmp/sym
+
+parameters:
+  flow_srn:
+    type: string
+    description: "The SRN of the Flow to trigger"
+  flow_inputs:
+    type: string
+    description: "A comma separated list of key-value pairs to include as flow_inputs (e.g. 'foo=bar,baz=boo')"
+  flow_context:
+    type: string
+    description: "A comma separated list of key-value pairs to include as context (e.g. 'foo=bar,baz=boo')"
+    default: "{}"
+  request_slug:
+    type: string
+    description: "A unique identifier for this request, so the output of this request can be used in other Sym Request Orb jobs (e.g. approvals/escalate). If not specified, the output will not be saved."
+    default: ""
+  sym_api_url:
+    type: string
+    description: "The URL to the Sym API."
+    default: "https://api.symops.com/api/v1"
+steps:
+  - request:
+      flow_srn: <<parameters.flow_srn>>
+      flow_inputs: <<parameters.flow_inputs>>
+      flow_context: <<parameters.flow_context>>
+      request_slug: <<parameters.request_slug>>
+      sym_api_url: <<parameters.sym_api_url>>
+  - persist_to_workspace:
+      root: /tmp/sym
+      paths:
+        - .

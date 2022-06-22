@@ -7,31 +7,38 @@ filters: &filters
   tags:
     only: /.*/
 
-jobs:
-  # Create a job to test the commands of your orbs.
-  # You may want to add additional validation steps to ensure the commands are working as expected.
-  command-tests:
-    docker:
-      - image: cimg/base:current
-    steps:
-      - checkout
-      # Run your orb's commands to validate them.
-      - sym/greet
 workflows:
   test-deploy:
     jobs:
-      # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - command-tests:
+      - approval/request:
+          flow_srn: "e2e-testing:flow:approval_orb_strategy:latest"
+          flow_inputs: '{
+            "build_url": "${CIRCLE_BUILD_URL}",
+            "workflow_id": "${CIRCLE_WORKFLOW_ID}",
+            "duration": 300,
+            "target_srn": "e2e-testing:access_target:custom:approval_orb_strategy-target:latest"
+          }'
+          request_slug: "request-test"
+          sym_api_url: "https://api.staging.symops.com/api/v1"
           filters: *filters
+      - wait_for_auto_approve:
+          type: approval
+          requires:
+            - approval/request
+      - approval/deescalate:
+          request_slug: "request-test"
+          sym_api_url: "https://api.staging.symops.com/api/v1"
+          requires:
+            - wait_for_auto_approve
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb-name: sym/sym
+          orb-name: sym/approval
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
             - orb-tools/pack
-            - command-tests
+            - approval/deescalate
           context: orb-publishing
           filters:
             branches:
