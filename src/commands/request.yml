@@ -11,7 +11,7 @@ parameters:
     description: "The JSON-encoded flow_inputs to include in the request"
   flow_context:
     type: string
-    description: "The Json-encoded context to include in the request"
+    description: "The JSON-encoded context to include in the request"
     default: "{}"
   request_slug:
     type: string

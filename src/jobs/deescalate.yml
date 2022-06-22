@@ -1,5 +1,5 @@
 description: >
-  Makes a Sym Request.
+  De-escalates an existing Sym Run.
 
 docker:
   - image: cimg/base:stable
