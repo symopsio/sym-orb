@@ -26,13 +26,13 @@ workflows:
           requires:
             - sym/request
           filters: *filters
-        - sym/deescalate:
+      - sym/deescalate:
           request_slug: "request-test"
           sym_api_url: "https://api.staging.symops.com/api/v1"
           requires:
             - wait_for_auto_approve
           filters: *filters
-        - orb-tools/pack:
+      - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
           orb-name: sym/sym
