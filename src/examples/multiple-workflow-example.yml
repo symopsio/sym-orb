@@ -1,0 +1,48 @@
+description: >
+  An example Circle CI setup with a prod deploy workflow that can be triggered triggered from an after_escalate hook in your Sym implementation.
+usage:
+  version: 2.1
+  orbs:
+    sym: sym/sym@1.0
+
+  parameters:
+    request:
+      default: true
+      type: boolean
+
+    trigger_prod_deploy:
+      default: false
+      type: boolean
+
+    deescalate_run_id:
+      default: ""
+      type: string
+
+  jobs:
+    prod-deploy:
+      docker:
+        - image: cimg/base:stable
+      steps:
+        - run:
+            command: echo "Deploying to prod"
+
+  workflows:
+    sym-request:
+      when: << pipeline.parameters.request >>
+      jobs:
+        - sym/request:
+            flow_srn: "healthy-health:flow:ci-deploy-prod:latest"
+            flow_inputs: '{
+                            "build_url": "${CIRCLE_BUILD_URL}",
+                            "duration": 3600,
+                            "target_srn": "healthy-health:access_target:custom:ci-deploy-target:latest"
+                          }'
+
+    deploy:
+      when: << pipeline.parameters.trigger_prod_deploy >>
+      jobs:
+        - prod-deploy
+        - sym/deescalate:
+            run_id: << pipeline.parameters.deescalate_run_id >>
+            requires:
+              - prod-deploy

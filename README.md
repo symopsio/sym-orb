@@ -1,23 +1,29 @@
-# Orb Template
+# Sym API Orb 
 
 
-[![CircleCI Build Status](https://circleci.com/gh/symopsio/sym-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/symopsio/sym-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/sym/sym.svg)](https://circleci.com/orbs/registry/orb/sym/sym) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/symopsio/sym-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+[![CircleCI Build Status](https://circleci.com/gh/symopsio/sym-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/symopsio/sym-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/sym/sym-orb.svg)](https://circleci.com/orbs/registry/orb/sym/sym-orb) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/symopsio/sym-orb/main/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
+Send Sym API requests from your CircleCI pipelines.
 
+[What are Orbs?](https://circleci.com/orbs/)
 
-A project template for Orbs.
+## Usage
+### Setup
+In order to use the Sym API Orb on CircleCI you will need to create a `SYM_JWT` and set it as an environment variable
+available for use in your pipeline.
 
-This repository is designed to be automatically ingested and modified by the CircleCI CLI's `orb init` command.
+1. Create a Bot user with `symflow bots create [bot-name]`
+2. Issue a `SYM_JWT` with `symflow tokens issue -u [bot-name] -e [expiry-length]`
+3. Save the JWT outputted by this previous step into an environment variable available to your workflow. You can do this by [adding the variable to a CircleCI Context](https://circleci.com/docs/2.0/env-vars#setting-an-environment-variable-in-a-context),
+or by [adding it to the Project Settings](https://circleci.com/docs/2.0/env-vars#setting-an-environment-variable-in-a-project)
 
-_**Edit this area to include a custom title and description.**_
+For more detailed documentation about Sym Bots and Tokens, visit the Sym Docs: [Bot Users and Tokens](https://docs.symops.com/docs/using-bot-tokens).
 
 ---
 
 ## Resources
-
-[CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/sym/sym) - The official registry page of this orb for all versions, executors, commands, and jobs described.
-
-[CircleCI Orb Docs](https://circleci.com/docs/2.0/orb-intro/#section=configuration) - Docs for using, creating, and publishing CircleCI Orbs.
+- [CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/sym/sym-orb) - The official registry page of this orb for all versions, executors, commands, and jobs described.
+- [Sym Documentation](https://docs.symops.com/docs) - The official docs page for Sym
 
 ### How to Contribute
 

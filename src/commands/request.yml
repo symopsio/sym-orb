@@ -1,0 +1,39 @@
+description: >
+  Make a Sym Request.
+  The environment variable SYM_JWT must be set for this orb to work.
+  For instructions on how to generate a Sym Token, see: https://docs.symops.com/docs/using-bot-tokens
+parameters:
+  flow_srn:
+    type: string
+    description: The SRN of the Flow to trigger
+  flow_inputs:
+    type: string
+    description: |
+      A valid JSON string containing the object to include as the `flow_inputs` parameter in the request body.
+      (e.g. '{"target_srn": "healthy-health:access_target:custom:ci-deploy-target:latest"}')
+  flow_context:
+    type: string
+    description: |
+      A valid JSON string containing the object to include as the `context` parameter in the request body.
+      (e.g. '{"foo": "bar"}')
+    default: "{}"
+  request_slug:
+    type: string
+    description: |
+      A unique identifier for this request, so the output of this request can be used in subsequent Sym Request Orb jobs (e.g. sym/deescalate).
+      If not specified, the output will not be saved."
+    default: ""
+  sym_api_url:
+    type: string
+    description: The URL to the Sym API.
+    default: "https://api.symops.com/api/v1"
+steps:
+  - run:
+      environment:
+        FLOW_SRN: <<parameters.flow_srn>>
+        FLOW_INPUTS: <<parameters.flow_inputs>>
+        CONTEXT: <<parameters.flow_context>>
+        REQUEST_SLUG: <<parameters.request_slug>>
+        SYM_API_URL: <<parameters.sym_api_url>>
+      name: Make Sym Request
+      command: <<include(scripts/request.sh)>>
