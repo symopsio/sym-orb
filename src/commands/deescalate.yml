@@ -1,19 +1,22 @@
 description: >
-  Deescalate a Run. The Run ID can be obtained from the response after making a Sym Request.
+  Deescalate a Run.
   The environment variable SYM_JWT must be set for this orb to work.
   For instructions on how to generate a Sym Token, see: https://docs.symops.com/docs/using-bot-tokens
 parameters:
   run_id:
     type: string
-    description: "The ID of the Run to de-escalate. One of run_id or request_slug must be defined."
+    description: |
+      The ID of the Run to de-escalate. One of run_id or request_slug must be defined.
     default: ""
   request_slug:
     type: string
-    description: "The unique slug of a Request from a previous `sym/request` job in the workflow. One of run_id or request_slug must be defined."
+    description: |
+      The unique slug of a Request from a previous `sym/request` job in the workflow.
+      One of run_id or request_slug must be defined.
     default: ""
   sym_api_url:
     type: string
-    description: "The URL to the Sym API."
+    description: The URL to the Sym API.
     default: "https://api.symops.com/api/v1"
 steps:
   - run:

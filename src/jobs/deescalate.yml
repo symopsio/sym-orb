@@ -9,15 +9,18 @@ working_directory: /tmp/sym
 parameters:
   run_id:
     type: string
-    description: "The ID of the Run to de-escalate. One of run_id or request_slug must be specified."
+    description: |
+      The ID of the Run to de-escalate. One of run_id or request_slug must be specified.
     default: ""
   request_slug:
     type: string
-    description: "The unique slug of a Request from a previous `sym/request` job in the workflow. One of run_id or request_slug must be defined."
+    description: |
+      The unique slug of a Request from a previous `sym/request` job in the workflow.
+      One of run_id or request_slug must be defined.
     default: ""
   sym_api_url:
     type: string
-    description: "The URL to the Sym API."
+    description: The URL to the Sym API.
     default: "https://api.symops.com/api/v1"
 steps:
   - attach_workspace:

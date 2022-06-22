@@ -5,21 +5,27 @@ description: >
 parameters:
   flow_srn:
     type: string
-    description: "The SRN of the Flow to trigger"
+    description: The SRN of the Flow to trigger
   flow_inputs:
     type: string
-    description: "The JSON-encoded flow_inputs to include in the request"
+    description: |
+      A valid JSON string containing the object to include as the `flow_inputs` parameter in the request body.
+      (e.g. '{"target_srn": "healthy-health:access_target:custom:ci-deploy-target:latest"}')
   flow_context:
     type: string
-    description: "The JSON-encoded context to include in the request"
+    description: |
+      A valid JSON string containing the object to include as the `context` parameter in the request body.
+      (e.g. '{"foo": "bar"}')
     default: "{}"
   request_slug:
     type: string
-    description: "A unique identifier for this request, so the output of this request can be used in other Sym API calls. If not specified, the output will not be saved."
+    description: |
+      A unique identifier for this request, so the output of this request can be used in subsequent Sym Request Orb jobs (e.g. sym/deescalate).
+      If not specified, the output will not be saved."
     default: ""
   sym_api_url:
     type: string
-    description: "The URL to the Sym API."
+    description: The URL to the Sym API.
     default: "https://api.symops.com/api/v1"
 steps:
   - run:
