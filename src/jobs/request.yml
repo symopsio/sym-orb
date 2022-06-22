@@ -19,7 +19,7 @@ parameters:
     default: "{}"
   request_slug:
     type: string
-    description: "A unique identifier for this request, so the output of this request can be used in other Sym Request Orb jobs (e.g. approvals/escalate). If not specified, the output will not be saved."
+    description: "A unique identifier for this request, so the output of this request can be used in other Sym Request Orb jobs (e.g. sym/deescalate). If not specified, the output will not be saved."
     default: ""
   sym_api_url:
     type: string

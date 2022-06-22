@@ -3,7 +3,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    approval: sym/approval@1.0
+    sym: sym/sym@1.0
 
   jobs:
     prod-deploy:
@@ -16,7 +16,7 @@ usage:
   workflows:
     sym-approval-example:
       jobs:
-        - approval/request:
+        - sym/request:
             flow_srn: "healthy-health:flow:ci-deploy-prod:latest"
             flow_inputs: '{
                             "build_url": "${CIRCLE_BUILD_URL}",
@@ -27,11 +27,11 @@ usage:
         - wait_for_approve_hook:
             type: approval
             requires:
-              - approval/request
+              - sym/request
         - prod-deploy:
             requires:
               - wait_for_approve_hook
-        - approval/deescalate:
+        - sym/deescalate:
             request_slug: "prod-deploy"
             requires:
               - prod-deploy

@@ -10,7 +10,7 @@ filters: &filters
 workflows:
   test-deploy:
     jobs:
-      - approval/request:
+      - sym/request:
           flow_srn: "e2e-testing:flow:approval_orb_strategy:latest"
           flow_inputs: '{
             "build_url": "${CIRCLE_BUILD_URL}",
@@ -24,8 +24,8 @@ workflows:
       - wait_for_auto_approve:
           type: approval
           requires:
-            - approval/request
-      - approval/deescalate:
+            - sym/request
+      - sym/deescalate:
           request_slug: "request-test"
           sym_api_url: "https://api.staging.symops.com/api/v1"
           requires:
@@ -33,12 +33,12 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb-name: sym/approval
+          orb-name: sym/sym
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
             - orb-tools/pack
-            - approval/deescalate
+            - sym/deescalate
           context: orb-publishing
           filters:
             branches:

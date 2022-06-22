@@ -3,7 +3,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    approval: sym/approval@1.0
+    sym: sym/sym@1.0
 
   parameters:
     request:
@@ -30,7 +30,7 @@ usage:
     sym-request:
       when: << pipeline.parameters.request >>
       jobs:
-        - approval/request:
+        - sym/request:
             flow_srn: "healthy-health:flow:ci-deploy-prod:latest"
             flow_inputs: '{
                             "build_url": "${CIRCLE_BUILD_URL}",
@@ -42,7 +42,7 @@ usage:
       when: << pipeline.parameters.trigger_prod_deploy >>
       jobs:
         - prod-deploy
-        - approval/deescalate:
+        - sym/deescalate:
             run_id: << pipeline.parameters.deescalate_run_id >>
             requires:
               - prod-deploy
