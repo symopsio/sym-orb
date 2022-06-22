@@ -14,8 +14,14 @@ usage:
       default: false
       type: boolean
 
+    deescalate_run_id:
+      default: ""
+      type: string
+
   jobs:
     prod-deploy:
+      docker:
+        - image: cimg/base:stable
       steps:
         - run:
             command: echo "Deploying to prod"
@@ -31,13 +37,12 @@ usage:
                             "duration": 3600,
                             "target_srn": "healthy-health:access_target:custom:ci-deploy-target:latest"
                           }'
-            request_slug: "prod-deploy"
 
-    prod_deploy:
+    deploy:
       when: << pipeline.parameters.trigger_prod_deploy >>
       jobs:
-        - prod_deploy
+        - prod-deploy
         - approval/deescalate:
-            request_slug: "prod-deploy"
+            run_id: << pipeline.parameters.deescalate_run_id >>
             requires:
-              - prod_deploy
+              - prod-deploy

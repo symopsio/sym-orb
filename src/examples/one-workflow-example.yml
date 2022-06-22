@@ -6,11 +6,12 @@ usage:
     approval: sym/approval@1.0
 
   jobs:
-    prod_deploy:
+    prod-deploy:
+      docker:
+        - image: cimg/base:stable
       steps:
         - run:
-            command: |
-              echo "Deploying to prod!"
+            command: echo "Deploying to prod"
 
   workflows:
     sym-approval-example:
@@ -27,10 +28,10 @@ usage:
             type: approval
             requires:
               - approval/request
-        - prod_deploy:
+        - prod-deploy:
             requires:
               - wait_for_approve_hook
         - approval/deescalate:
             request_slug: "prod-deploy"
             requires:
-              - prod_deploy
+              - prod-deploy
