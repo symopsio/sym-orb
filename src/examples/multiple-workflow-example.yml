@@ -34,7 +34,7 @@ usage:
             request_slug: "prod-deploy"
 
     prod_deploy:
-      when: << pipeline.parameters.prod_deploy >>
+      when: << pipeline.parameters.trigger_prod_deploy >>
       jobs:
         - prod_deploy
         - approval/deescalate:
