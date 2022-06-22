@@ -1,7 +1,7 @@
 # Sym API Orb 
 
 
-[![CircleCI Build Status](https://circleci.com/gh/symopsio/sym-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/symopsio/sym-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/sym/sym-orb.svg)](https://circleci.com/orbs/registry/orb/sym/sym-orb) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/symopsio/sym-orb/main/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+[![CircleCI Build Status](https://circleci.com/gh/symopsio/sym-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/symopsio/sym-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/sym/sym.svg)](https://circleci.com/orbs/registry/orb/sym/sym) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/symopsio/sym-orb/main/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
 Send Sym API requests from your CircleCI pipelines.
 
@@ -22,7 +22,7 @@ For more detailed documentation about Sym Bots and Tokens, visit the Sym Docs: [
 ---
 
 ## Resources
-- [CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/sym/sym-orb) - The official registry page of this orb for all versions, executors, commands, and jobs described.
+- [CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/sym/sym) - The official registry page of this orb for all versions, executors, commands, and jobs described.
 - [Sym Documentation](https://docs.symops.com/docs) - The official docs page for Sym
 
 ### How to Contribute
