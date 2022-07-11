@@ -1,5 +1,5 @@
 description: >
-  An example Circle CI setup with a prod deploy workflow that can be triggered triggered from an after_escalate hook in your Sym implementation.
+  An example Circle CI setup with a prod deploy workflow that can be triggered from an after_escalate hook in your Sym implementation.
 usage:
   version: 2.1
   orbs:
