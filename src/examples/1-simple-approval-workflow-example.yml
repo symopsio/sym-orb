@@ -17,11 +17,10 @@ usage:
     sym-approval-example:
       jobs:
         - sym/request:
-            flow_srn: "healthy-health:flow:ci-deploy-prod:latest"
+            flow_srn: "healthy-health:flow:approval-ci-deploy-prod:latest"
             flow_inputs: '{
                             "build_url": "${CIRCLE_BUILD_URL}",
-                            "duration": 3600,
-                            "target_srn": "healthy-health:access_target:custom:ci-deploy-target:latest"
+                            "workflow_id": "${CIRCLE_WORKFLOW_ID}"
                           }'
             request_slug: "prod-deploy"
         - wait_for_approve_hook:
@@ -31,7 +30,3 @@ usage:
         - prod-deploy:
             requires:
               - wait_for_approve_hook
-        - sym/deescalate:
-            request_slug: "prod-deploy"
-            requires:
-              - prod-deploy
