@@ -1,0 +1,32 @@
+description: >
+  An example Circle CI setup with a prod deploy workflow that can be triggered from an after_escalate hook in your Sym implementation.
+  Once approved, the CI user will execute the deployment step with elevated permissions as configured in the flow, and be deescalated
+  automatically in 1 hour.
+usage:
+  version: 2.1
+  orbs:
+    sym: sym/sym@1.0
+  jobs:
+    prod-deploy:
+      docker:
+        - image: 'cimg/base:stable'
+      steps:
+        - run:
+            command: echo "Deploying to prod with escalated privileges"
+  workflows:
+    sym-approval-example:
+      jobs:
+        - sym/request:
+            flow_inputs: >-
+              { "build_url": "${CIRCLE_BUILD_URL}", "duration": 3600,
+              "target_srn":
+              "healthy-health:access_target:custom:ci-deploy-target:latest" }
+            flow_srn: 'healthy-health:flow:escalated-ci-deploy-prod:latest'
+            request_slug: prod-deploy
+        - wait_for_approve_hook:
+            requires:
+              - sym/request
+            type: approval
+        - prod-deploy:
+            requires:
+              - wait_for_approve_hook

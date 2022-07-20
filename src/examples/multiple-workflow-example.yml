@@ -1,5 +1,6 @@
 description: >
   An example Circle CI setup with a prod deploy workflow that can be triggered from an after_escalate hook in your Sym implementation.
+  The privilege escalation will be automatically revoked once the `prod-deploy` step is done.
 usage:
   version: 2.1
   orbs:
@@ -35,7 +36,7 @@ usage:
             flow_inputs: '{
                             "build_url": "${CIRCLE_BUILD_URL}",
                             "duration": 3600,
-                            "target_srn": "healthy-health:access_target:custom:ci-deploy-target:latest"
+                            "target_srn": "healthy-health:access_target:escalated-custom:ci-deploy-target:latest"
                           }'
 
     deploy:
