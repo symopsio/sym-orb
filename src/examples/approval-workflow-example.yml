@@ -27,6 +27,8 @@ usage:
             type: approval
             requires:
               - sym/request
+        - sym/validate:
+            request_slug: "prod-deploy"
         - prod-deploy:
             requires:
               - wait_for_approve_hook

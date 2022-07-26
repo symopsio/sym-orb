@@ -1,6 +1,5 @@
 description: >
   An example Circle CI setup with a prod deploy workflow that can be triggered from an after_escalate hook in your Sym implementation.
-  The privilege escalation will be automatically revoked once the `prod-deploy` step is done.
 usage:
   version: 2.1
   orbs:
@@ -15,7 +14,7 @@ usage:
       default: false
       type: boolean
 
-    deescalate_run_id:
+    run_id:
       default: ""
       type: string
 
@@ -42,8 +41,8 @@ usage:
     deploy:
       when: << pipeline.parameters.trigger_prod_deploy >>
       jobs:
+        - sym/validate:
+            run_id: << pipeline.parameters.run_id >>
         - prod-deploy
-        - sym/deescalate:
-            run_id: << pipeline.parameters.deescalate_run_id >>
             requires:
-              - prod-deploy
+              - sym/validate

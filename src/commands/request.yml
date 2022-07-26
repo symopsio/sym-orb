@@ -29,6 +29,11 @@ parameters:
     default: "https://api.symops.com/api/v1"
 steps:
   - run:
+      command: |
+        set -e
+        apt-get -q -y update
+        apt-get -q -y gettext-base
+  - run:
       environment:
         FLOW_SRN: <<parameters.flow_srn>>
         FLOW_INPUTS: <<parameters.flow_inputs>>

@@ -1,0 +1,31 @@
+description: >
+  Validate that a Sym Run is approved.
+
+docker:
+  - image: cimg/base:stable
+
+working_directory: /tmp/sym
+
+parameters:
+  run_id:
+    type: string
+    description: |
+      The ID of the Run to validate. One of run_id or request_slug must be specified.
+    default: ""
+  request_slug:
+    type: string
+    description: |
+      The unique slug of a Request from a previous `sym/request` job in the workflow.
+      One of run_id or request_slug must be defined.
+    default: ""
+  sym_api_url:
+    type: string
+    description: The URL to the Sym API.
+    default: "https://api.symops.com/api/v1"
+steps:
+  - attach_workspace:
+        at: /tmp/sym
+  - deescalate:
+      run_id: <<parameters.run_id>>
+      request_slug: <<parameters.request_slug>>
+      sym_api_url: <<parameters.sym_api_url>>

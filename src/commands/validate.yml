@@ -1,5 +1,5 @@
 description: >
-  Deescalate a Run.
+  Validate that a given Sym Run is approved.
   The environment variable SYM_JWT must be set for this orb to work.
   For instructions on how to generate a Sym Token, see: https://docs.symops.com/docs/using-bot-tokens
 parameters:
@@ -24,5 +24,5 @@ steps:
         RUN_ID: <<parameters.run_id>>
         REQUEST_SLUG: <<parameters.request_slug>>
         SYM_API_URL: <<parameters.sym_api_url>>
-      name: De-escalate Sym Run
-      command: <<include(scripts/deescalate.sh)>>
+      name: Validate Sym Run
+      command: <<include(scripts/validate.sh)>>
