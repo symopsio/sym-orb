@@ -8,7 +8,7 @@ fi
 
 if ! command -v envsubst >/dev/null 2>&1; then
   $SUDO apt-get -q -y update
-  $SUDO apt-get -q -y gettext-base
+  $SUDO apt-get -q -y install gettext-base
 fi
 
 echo "========================================================================"
