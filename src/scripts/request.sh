@@ -2,6 +2,15 @@
 set -o pipefail
 set -e
 
+if [[ $EUID == 0 ]]; then export SUDO=""; else # Check if we are root
+  export SUDO="sudo";
+fi
+
+if ! command -v envsubst >/dev/null 2>&1; then
+  $SUDO apt-get -q -y update
+  $SUDO apt-get -q -y gettext-base
+fi
+
 echo "========================================================================"
 FLOW_SRN=$(echo $FLOW_SRN | envsubst)
 FLOW_INPUTS=$(echo $FLOW_INPUTS | envsubst)
