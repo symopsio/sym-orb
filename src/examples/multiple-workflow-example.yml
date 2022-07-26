@@ -43,6 +43,6 @@ usage:
       jobs:
         - sym/validate:
             run_id: << pipeline.parameters.run_id >>
-        - prod-deploy
+        - prod-deploy:
             requires:
               - sym/validate

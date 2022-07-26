@@ -24,7 +24,7 @@ parameters:
     default: "https://api.symops.com/api/v1"
 steps:
   - attach_workspace:
-        at: /tmp/sym
+      at: /tmp/sym
   - deescalate:
       run_id: <<parameters.run_id>>
       request_slug: <<parameters.request_slug>>
