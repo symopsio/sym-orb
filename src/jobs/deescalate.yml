@@ -2,7 +2,7 @@ description: >
   De-escalates an existing Sym Run.
 
 docker:
-  - image: cimg/base:stable
+  - image: cimg/aws:2022.06
 
 working_directory: /tmp/sym
 

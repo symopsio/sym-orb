@@ -2,7 +2,7 @@ description: >
   Validate that a Sym Run is approved.
 
 docker:
-  - image: cimg/base:stable
+  - image: cimg/aws:2022.06
 
 working_directory: /tmp/sym
 

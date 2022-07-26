@@ -23,12 +23,14 @@ usage:
                             "workflow_id": "${CIRCLE_WORKFLOW_ID}"
                           }'
             request_slug: "prod-deploy"
-        - wait_for_approve_hook:
+        - wait_for_sym_approval:
             type: approval
             requires:
               - sym/request
         - sym/validate:
             request_slug: "prod-deploy"
+            requires:
+              - wait_for_sym_approval
         - prod-deploy:
             requires:
-              - wait_for_approve_hook
+              - sym/validate
