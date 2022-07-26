@@ -7,8 +7,8 @@ if [[ $EUID == 0 ]]; then export SUDO=""; else # Check if we are root
 fi
 
 if ! command -v envsubst >/dev/null 2>&1; then
-  $SUDO apt-get -q -y update
-  $SUDO apt-get -q -y install gettext-base
+  $SUDO apt-get -qq -y update
+  $SUDO apt-get -qq -y install gettext-base
 fi
 
 echo "========================================================================"
