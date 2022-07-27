@@ -6,7 +6,7 @@ if [[ -z $RUN_ID ]]; then
   # No Run ID, check for Request Slug
   if [[ -n $REQUEST_SLUG ]]; then
     echo "Getting Run ID from $REQUEST_SLUG"
-    RUN_ID=$(<requests jq -r --arg request_slug "$REQUEST_SLUG" '.[$request_slug].run_id')
+    RUN_ID=$(</tmp/workspace/sym/requests.json jq -r --arg request_slug "$REQUEST_SLUG" '.[$request_slug].run_id')
 
     if [[ -z $RUN_ID ]]; then
       echo "Did not find a Run ID for slug $REQUEST_SLUG"

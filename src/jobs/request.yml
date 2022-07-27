@@ -4,8 +4,6 @@ description: >
 docker:
   - image: cimg/aws:2022.06
 
-working_directory: /tmp/sym
-
 parameters:
   flow_srn:
     type: string
@@ -32,13 +30,15 @@ parameters:
     description: The URL to the Sym API.
     default: "https://api.symops.com/api/v1"
 steps:
+  - run: mkdir -p sym
   - request:
       flow_srn: <<parameters.flow_srn>>
       flow_inputs: <<parameters.flow_inputs>>
       flow_context: <<parameters.flow_context>>
       request_slug: <<parameters.request_slug>>
       sym_api_url: <<parameters.sym_api_url>>
+      working_directory: sym
   - persist_to_workspace:
-      root: /tmp/sym
+      root: .
       paths:
-        - .
+        - sym/requests.json

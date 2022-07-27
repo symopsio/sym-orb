@@ -52,7 +52,7 @@ if [[ -n $REQUEST_SLUG ]]; then
   jq \
   --arg request_slug "$REQUEST_SLUG" \
   --argjson response_body "$RESPONSE_BODY" \
-  '.+={($request_slug): $response_body}' requests > requests.tmp
+  '.+={($request_slug): $response_body}' requests.json > requests.tmp
 
-  mv requests.tmp requests
+  mv requests.tmp requests.json
 fi
