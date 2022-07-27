@@ -16,7 +16,7 @@ FLOW_SRN=$(echo $FLOW_SRN | envsubst)
 FLOW_INPUTS=$(echo $FLOW_INPUTS | envsubst)
 CONTEXT=$(echo $CONTEXT | envsubst)
 
-if [[ -z $CONTEXT ]]; then
+if [[ -z $CONTEXT ]] || [[ $CONTEXT == "{}" ]]; then
   # Check if there is a context file to load from if no parameter was specified
   if [[ -f /tmp/workspace/sym/context.json ]]; then
     CONTEXT=$(</tmp/workspace/sym/context.json jq -r)
