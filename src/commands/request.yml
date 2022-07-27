@@ -34,6 +34,7 @@ steps:
   - run:
       name: Collect context
       command: <<include(scripts/collect_context.sh)>>
+      working_directory: /tmp/workspace
   - run:
       environment:
         FLOW_SRN: <<parameters.flow_srn>>
