@@ -2,7 +2,7 @@ description: >
   Makes a Sym Request.
 
 docker:
-  - image: cimg/aws:2022.06
+  - image: bitnami/python:3.10
 
 parameters:
   flow_srn:
