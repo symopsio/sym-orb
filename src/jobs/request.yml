@@ -21,6 +21,8 @@ parameters:
 
       The context can also be supplied by providing data in the workspace, either as
       sym/context.json or as a collection of files in the sym/context folder.
+
+      Binary files in the sym/context folder are not supported. JSON files will be encoded as strings.
     default: "{}"
   request_slug:
     type: string
