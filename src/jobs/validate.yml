@@ -2,7 +2,7 @@ description: >
   Validate that a Sym Run is approved.
 
 docker:
-  - image: bitnami/python:3.10
+  - image: cimg/deploy:2022.07
 
 parameters:
   run_id:

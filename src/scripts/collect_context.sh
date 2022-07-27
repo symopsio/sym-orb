@@ -2,7 +2,11 @@
 set -o pipefail
 set -e
 
-python - <<SCRIPT
+if command -v python >/dev/null 2>&1; then export PYTHON="python"; else
+  export PYTHON="python3";
+fi
+
+$PYTHON - <<SCRIPT
 import json
 import os
 import sys
