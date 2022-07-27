@@ -33,6 +33,8 @@ parameters:
     description: The URL to the Sym API.
     default: "https://api.symops.com/api/v1"
 steps:
+  - attach_workspace:
+      at: /tmp/workspace
   - run:
       name: Create sym directory
       command: mkdir -p sym

@@ -18,8 +18,8 @@ CONTEXT=$(echo $CONTEXT | envsubst)
 
 if [[ -z $CONTEXT ]]; then
   # Check if there is a context file to load from if no parameter was specified
-  if [[ -f sym/context.json ]]; then
-    CONTEXT=$(<sym/context.json jq -r)
+  if [[ -f /tmp/workspace/sym/context.json ]]; then
+    CONTEXT=$(</tmp/workspace/sym/context.json jq -r)
   fi
 fi
 
