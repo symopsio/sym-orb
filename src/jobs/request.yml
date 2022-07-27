@@ -30,7 +30,9 @@ parameters:
     description: The URL to the Sym API.
     default: "https://api.symops.com/api/v1"
 steps:
-  - run: mkdir -p sym
+  - run:
+      name: Create sym directory
+      command: mkdir -p sym
   - request:
       flow_srn: <<parameters.flow_srn>>
       flow_inputs: <<parameters.flow_inputs>>
