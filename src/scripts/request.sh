@@ -43,10 +43,11 @@ if [[ -n $exit_code ]]; then
 fi
 
 if [[ -n $REQUEST_SLUG ]]; then
+  pushd sym
   echo "Response: $RESPONSE_BODY"
   echo "Saving response body to $REQUEST_SLUG"
-  if [[ ! -f requests ]]; then
-    echo "{}" > requests
+  if [[ ! -f requests.json ]]; then
+    echo "{}" > requests.json
   fi
 
   jq \
@@ -55,4 +56,5 @@ if [[ -n $REQUEST_SLUG ]]; then
   '.+={($request_slug): $response_body}' requests.json > requests.tmp
 
   mv requests.tmp requests.json
+  popd
 fi

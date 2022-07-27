@@ -39,7 +39,6 @@ steps:
       flow_context: <<parameters.flow_context>>
       request_slug: <<parameters.request_slug>>
       sym_api_url: <<parameters.sym_api_url>>
-      working_directory: sym
   - persist_to_workspace:
       root: .
       paths:
