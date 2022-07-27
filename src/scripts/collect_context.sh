@@ -1,5 +1,8 @@
-#!/usr/bin/env python
+#!/bin/bash
+set -o pipefail
+set -e
 
+python - <<SCRIPT
 import json
 import os
 import sys
@@ -19,3 +22,4 @@ target_path = os.path.join("sym", "context.json")
 with open(target_path, "w") as target:
     json.dump(data, target)
 print(f"Added context to {target_path}")
+SCRIPT

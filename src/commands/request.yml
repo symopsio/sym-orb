@@ -33,7 +33,7 @@ parameters:
 steps:
   - run:
       name: Collect context
-      command: <<include(scripts/collect_context.py)>>
+      command: <<include(scripts/collect_context.sh)>>
   - run:
       environment:
         FLOW_SRN: <<parameters.flow_srn>>
