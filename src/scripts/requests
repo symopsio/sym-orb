@@ -1,0 +1,16 @@
+{
+  "slug2": {
+    "request": {
+      "flow_srn": "sym:flow:ci-approval:latest",
+      "flow_inputs": {
+        "workflow_url": "https://circleci.com/gh/symopsio/circleci-example/28",
+        "merging_user": "jon",
+        "workflow_id": "3a5abd28-4d43-43ea-8bc6-827c7251916d",
+        "call_id": "d676eabe-b963-4a60-a749-d96fcc4b6c49"
+      },
+      "context": {}
+    },
+    "event_id": "817300e4-9503-4d65-9ef5-0925ca363a54",
+    "run_id": "8e4cab5f-e1e9-4342-9262-e510db625b09"
+  }
+}
