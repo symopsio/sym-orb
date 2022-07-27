@@ -17,7 +17,10 @@ parameters:
     type: string
     description: |
       A valid JSON string containing the object to include as the `context` parameter in the request body.
-      (e.g. '{"foo": "bar"}')
+      (e.g. '{"foo": "bar"}').
+
+      The context can also be supplied by providing data in the workspace, either as
+      sym/context.json or as a collection of files in the sym/context folder.
     default: "{}"
   request_slug:
     type: string
