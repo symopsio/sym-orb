@@ -21,7 +21,7 @@ fi
 echo "De-escalating $RUN_ID"
 
 REQUEST_BODY="$(jq --null-input \
-  --argjson run_id "$RUN_ID" \
+  --arg run_id "$RUN_ID" \
   '. + {
     "run_id": $run_id,
   }'
