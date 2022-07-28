@@ -29,22 +29,24 @@ if [[ -z $RUN_ID ]]; then
   fi
 fi
 
-echo "De-escalating $RUN_ID"
+echo "Checking status of Run ID: $RUN_ID"
 
-REQUEST_BODY="$(jq --null-input \
-  --arg run_id "$RUN_ID" \
-  '. + {
-    "run_id": $run_id,
-  }'
-)"
-
-response=$(curl --fail-with-body -Ls -X POST "${SYM_API_URL}/events/deescalate" \
+response=$(curl --fail-with-body -Ls "${SYM_API_URL}/runs/${RUN_ID}" \
   --header "Authorization: Bearer ${SYM_JWT}" \
-  --header "Content-Type: application/json" \
-  --data "$REQUEST_BODY") || exit_code=$?
+  --header "Content-Type: application/json") || exit_code=$?
 
 if [[ -n $exit_code ]]; then
   echo "Sym API request failed!"
   echo "Response: ${response}"
   exit 1
 fi
+
+status=$(echo "$response" | jq -r '.status')
+if [[ $status == "approved" ]] || [[ $status == "escalated" ]]; then
+  echo "Valid status: $status"
+  exit 0
+else
+  echo "Invalid status: $status"
+  exit 1
+fi
+

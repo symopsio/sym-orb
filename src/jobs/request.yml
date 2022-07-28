@@ -2,9 +2,7 @@ description: >
   Makes a Sym Request.
 
 docker:
-  - image: cimg/base:stable
-
-working_directory: /tmp/sym
+  - image: cimg/deploy:2022.07
 
 parameters:
   flow_srn:
@@ -19,7 +17,12 @@ parameters:
     type: string
     description: |
       A valid JSON string containing the object to include as the `context` parameter in the request body.
-      (e.g. '{"foo": "bar"}')
+      (e.g. '{"foo": "bar"}').
+
+      The context can also be supplied by providing data in the workspace, either as
+      sym/context.json or as a collection of files in the sym/context folder.
+
+      Binary files in the sym/context folder are not supported. JSON files will be encoded as strings.
     default: "{}"
   request_slug:
     type: string
@@ -32,6 +35,11 @@ parameters:
     description: The URL to the Sym API.
     default: "https://api.symops.com/api/v1"
 steps:
+  - attach_workspace:
+      at: /tmp/workspace
+  - run:
+      name: Create sym directory
+      command: mkdir -p sym
   - request:
       flow_srn: <<parameters.flow_srn>>
       flow_inputs: <<parameters.flow_inputs>>
@@ -39,6 +47,6 @@ steps:
       request_slug: <<parameters.request_slug>>
       sym_api_url: <<parameters.sym_api_url>>
   - persist_to_workspace:
-      root: /tmp/sym
+      root: .
       paths:
-        - .
+        - sym/requests.json

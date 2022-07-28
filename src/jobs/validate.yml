@@ -1,5 +1,5 @@
 description: >
-  De-escalates an existing Sym Run.
+  Validate that a Sym Run is approved.
 
 docker:
   - image: cimg/deploy:2022.07
@@ -8,7 +8,7 @@ parameters:
   run_id:
     type: string
     description: |
-      The ID of the Run to de-escalate. One of run_id or request_slug must be specified.
+      The ID of the Run to validate. One of run_id or request_slug must be specified.
     default: ""
   request_slug:
     type: string
@@ -23,7 +23,7 @@ parameters:
 steps:
   - attach_workspace:
       at: /tmp/workspace
-  - deescalate:
+  - validate:
       run_id: <<parameters.run_id>>
       request_slug: <<parameters.request_slug>>
       sym_api_url: <<parameters.sym_api_url>>
