@@ -15,6 +15,7 @@ echo "========================================================================"
 FLOW_SRN=$(echo $FLOW_SRN | envsubst)
 FLOW_INPUTS=$(echo $FLOW_INPUTS | envsubst)
 CONTEXT=$(echo $CONTEXT | envsubst)
+REQUEST_SLUG=$(echo $REQUEST_SLUG | envsubst)
 
 if [[ -z $CONTEXT ]] || [[ $CONTEXT == "{}" ]]; then
   # Check if there is a context file to load from if no parameter was specified

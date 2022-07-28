@@ -2,6 +2,17 @@
 set -o pipefail
 set -e
 
+if [[ $EUID == 0 ]]; then export SUDO=""; else # Check if we are root
+  export SUDO="sudo";
+fi
+
+if ! command -v envsubst >/dev/null 2>&1; then
+  $SUDO apt-get -qq -y update
+  $SUDO apt-get -qq -y install gettext-base
+fi
+
+REQUEST_SLUG=$(echo $REQUEST_SLUG | envsubst)
+
 if [[ -z $RUN_ID ]]; then
   # No Run ID, check for Request Slug
   if [[ -n $REQUEST_SLUG ]]; then
