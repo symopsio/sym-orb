@@ -2,7 +2,7 @@ description: >
   Validate that a Sym Run is approved.
 
 docker:
-  - image: cimg/aws:2022.06
+  - image: cimg/deploy:2022.07
 
 parameters:
   run_id:

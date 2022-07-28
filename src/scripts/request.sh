@@ -16,6 +16,13 @@ FLOW_SRN=$(echo $FLOW_SRN | envsubst)
 FLOW_INPUTS=$(echo $FLOW_INPUTS | envsubst)
 CONTEXT=$(echo $CONTEXT | envsubst)
 
+if [[ -z $CONTEXT ]] || [[ $CONTEXT == "{}" ]]; then
+  # Check if there is a context file to load from if no parameter was specified
+  if [[ -f /tmp/workspace/sym/context.json ]]; then
+    CONTEXT=$(</tmp/workspace/sym/context.json jq -r)
+  fi
+fi
+
 REQUEST_BODY="$(jq --null-input \
   --arg flow_srn "$FLOW_SRN" \
   --argjson flow_inputs "$FLOW_INPUTS" \
