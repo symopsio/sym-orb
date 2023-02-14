@@ -23,7 +23,14 @@ parameters:
 steps:
   - attach_workspace:
       at: /tmp/workspace
+  - run:
+      name: Create sym directory
+      command: mkdir -p sym
   - deescalate:
       run_id: <<parameters.run_id>>
       request_slug: <<parameters.request_slug>>
       sym_api_url: <<parameters.sym_api_url>>
+  - persist_to_workspace:
+      root: .
+      paths:
+        - sym/deescalates.json

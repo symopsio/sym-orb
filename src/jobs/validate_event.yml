@@ -1,0 +1,36 @@
+description: >
+  Validates that an event succeeded by polling the Sym Events API.
+
+docker:
+  - image: cimg/deploy:2022.07
+
+parameters:
+  event_id:
+    type: string
+    description: |
+      The ID of the Run to de-escalate. One of event_id or request_slug must be defined.
+    default: ""
+  request_slug:
+    type: string
+    description: |
+      The unique slug of a Request from a previous `sym/request` or `sym/deescalate` job in the workflow.
+      One of event_id or both request_slug and event_name must be defined.
+    default: ""
+  event_name:
+    type: string
+    description: |
+      The name of the event to poll. Valid values: 'request', 'deescalate'
+      One of event_id or both request_slug and event_name must be defined.
+    default: ""
+  sym_api_url:
+    type: string
+    description: The URL to the Sym API.
+    default: "https://api.symops.com/api/v1"
+steps:
+  - attach_workspace:
+      at: /tmp/workspace
+  - validate_event:
+      event_id: <<parameters.event_id>>
+      request_slug: <<parameters.request_slug>>
+      event_name: <<parameters.event_name>>
+      sym_api_url: <<parameters.sym_api_url>>

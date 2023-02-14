@@ -1,0 +1,35 @@
+description: >
+  Validates that an event succeeded by polling the Sym Events API.
+  The environment variable SYM_JWT must be set for this orb to work.
+  For instructions on how to generate a Sym Token, see: https://docs.symops.com/docs/using-bot-tokens
+parameters:
+  event_id:
+    type: string
+    description: |
+      The ID of the Run to de-escalate. One of event_id or request_slug must be defined.
+    default: ""
+  request_slug:
+    type: string
+    description: |
+      The unique slug of a Request from a previous `sym/request` or `sym/deescalate` job in the workflow.
+      One of event_id or both request_slug and event_name must be defined.
+    default: ""
+  event_name:
+    type: string
+    description: |
+      The name of the event to poll. Valid values: 'request', 'deescalate'
+      One of event_id or both request_slug and event_name must be defined.
+    default: ""
+  sym_api_url:
+    type: string
+    description: The URL to the Sym API.
+    default: "https://api.symops.com/api/v1"
+steps:
+  - run:
+      environment:
+        EVENT_ID: <<parameters.event_id>>
+        REQUEST_SLUG: <<parameters.request_slug>>
+        EVENT_NAME: <<parameters.event_name>>
+        SYM_API_URL: <<parameters.sym_api_url>>
+      name: Validate Sym Event Succeeded
+      command: <<include(scripts/validate_event.sh)>>
