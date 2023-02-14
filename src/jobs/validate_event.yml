@@ -2,7 +2,7 @@ description: >
   Validates that an event succeeded by polling the Sym Events API.
 
 docker:
-  - image: cimg/deploy:2022.07
+  - image:  cimg/deploy:2023.02
 
 parameters:
   event_id:
