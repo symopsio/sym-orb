@@ -50,10 +50,10 @@ do
 
   event_status=$(echo $response | jq ".status")
 
-  if [ "$event_status" == "success"]; then
+  if [ "$event_status" == "success" ]; then
     echo "Received status 'success' for Event ID $EVENT_ID"
     exit 0
-  elif [ "$event_status" == "error"]; then
+  elif [ "$event_status" == "error" ]; then
     echo "Received status 'error' Event ID $EVENT_ID"
     exit 1
   fi
