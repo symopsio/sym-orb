@@ -29,7 +29,7 @@ if [[ -z $EVENT_ID ]]; then
 
     EVENT_ID=$(</tmp/workspace/sym/$file_name jq -r --arg request_slug "$REQUEST_SLUG" '.[$request_slug].event_id')
 
-    if [[ -z EVENT_ID ]]; then
+    if [[ -z $EVENT_ID ]]; then
       echo "Did not find an Event ID for slug $REQUEST_SLUG and event $EVENT_NAME"
       exit 1
     fi
