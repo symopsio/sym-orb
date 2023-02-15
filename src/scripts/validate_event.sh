@@ -54,7 +54,7 @@ do
     exit 1
   fi
 
-  event_status=$(echo $response | jq ".status")
+  event_status=$(echo $response | jq -r ".status")
 
   if [ "$event_status" = "success" ]; then
     echo "Received status 'success' for Event ID $EVENT_ID"
