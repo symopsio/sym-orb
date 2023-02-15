@@ -33,6 +33,12 @@ parameters:
     type: integer
     description: The time in seconds to wait between polling attempts.
     default: 5
+  fail_on_verify_timeout:
+    type: boolean
+    description: |
+        Whether to exit with an error if the verification of the event status
+        does not complete within the number of polling attempts.
+    default: true
 steps:
   - attach_workspace:
       at: /tmp/workspace
@@ -44,6 +50,7 @@ steps:
         SYM_API_URL: <<parameters.sym_api_url>>
         EVENT_STATUS_POLL_MAX_ATTEMPTS: <<parameters.max_poll_attempts>>
         EVENT_STATUS_POLL_INTERVAL: <<parameters.poll_interval>>
+        EVENT_FAIL_ON_VERIFY_TIMEOUT: <<parameters.fail_on_verify_timeout>>
       name: Validate Sym Event Succeeded
       command: <<include(scripts/validate_event.sh)>>
       working_directory: /tmp/workspace
