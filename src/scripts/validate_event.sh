@@ -56,15 +56,15 @@ do
 
   event_status=$(echo $response | jq ".status")
 
-  if [[ "$event_status" = "success" ]]; then
+  if [[ $event_status = "success" ]]; then
     echo "Received status 'success' for Event ID $EVENT_ID"
     exit 0
-  elif [[ "$event_status" = "error" ]]; then
+  elif [[ $event_status = "error" ]]; then
     echo "Received status 'error' Event ID $EVENT_ID"
     exit 1
   fi
 
-  echo [[ "$event_status" = "success" ]]
+  echo [[ $event_status = "success" ]]
   echo "Received status '$event_status' for Event ID $EVENT_ID"
   sleep "$EVENT_STATUS_POLL_INTERVAL"
 
