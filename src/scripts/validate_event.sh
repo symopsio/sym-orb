@@ -2,7 +2,7 @@
 set -o pipefail
 set -e
 
-if [[ $EUID = 0 ]]; then export SUDO=""; else # Check if we are root
+if [ $EUID = 0 ]; then export SUDO=""; else # Check if we are root
   export SUDO="sudo";
 fi
 
@@ -18,9 +18,9 @@ if [[ -z $EVENT_ID ]]; then
   if [[ -n $REQUEST_SLUG && -n $EVENT_NAME ]]; then
     echo "Getting Event ID from $REQUEST_SLUG for event $EVENT_NAME"
 
-    if [[ "$EVENT_NAME" = "deescalate" ]]; then
+    if [ "$EVENT_NAME" = "deescalate" ]; then
         file_name="deescalates.json"
-    elif [[ "$EVENT_NAME" = "request" ]]; then
+    elif [ "$EVENT_NAME" = "request" ]; then
         file_name="requests.json"
     else
       echo "$EVENT_NAME is not a valid event name. Valid names: 'deescalate', 'request'"
@@ -56,15 +56,15 @@ do
 
   event_status=$(echo $response | jq ".status")
 
-  if [[ $event_status = "success" ]]; then
+  if [ "$event_status" = "success" ]; then
     echo "Received status 'success' for Event ID $EVENT_ID"
     exit 0
-  elif [[ $event_status = "error" ]]; then
+  elif [ "$event_status" = "error" ]; then
     echo "Received status 'error' Event ID $EVENT_ID"
     exit 1
   fi
 
-  echo [[ $event_status = "success" ]]
+  echo [ "$event_status" = "success" ]
   echo "Received status '$event_status' for Event ID $EVENT_ID"
   sleep "$EVENT_STATUS_POLL_INTERVAL"
 
