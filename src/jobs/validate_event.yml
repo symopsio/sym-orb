@@ -2,7 +2,7 @@ description: >
   Validates that an event succeeded by polling the Sym Events API.
 
 docker:
-  - image:  cimg/deploy:2023.02
+  - image: cimg/deploy:2023.02
 
 parameters:
   event_id:
@@ -27,8 +27,6 @@ parameters:
     description: The URL to the Sym API.
     default: "https://api.symops.com/api/v1"
 steps:
-  - attach_workspace:
-      at: /tmp/workspace
   - validate_event:
       event_id: <<parameters.event_id>>
       request_slug: <<parameters.request_slug>>
