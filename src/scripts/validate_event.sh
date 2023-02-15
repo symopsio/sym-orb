@@ -18,9 +18,9 @@ if [[ -z $EVENT_ID ]]; then
   if [[ -n $REQUEST_SLUG && -n $EVENT_NAME ]]; then
     echo "Getting Event ID from $REQUEST_SLUG for event $EVENT_NAME"
 
-    if [ "$EVENT_NAME" = "deescalate" ]; then
+    if [[ "$EVENT_NAME" = "deescalate" ]]; then
         file_name="deescalates.json"
-    elif [ "$EVENT_NAME" = "request" ]; then
+    elif [[ "$EVENT_NAME" = "request" ]]; then
         file_name="requests.json"
     else
       echo "$EVENT_NAME is not a valid event name. Valid names: 'deescalate', 'request'"
@@ -56,10 +56,10 @@ do
 
   event_status=$(echo $response | jq ".status")
 
-  if [ "$event_status" = "success" ]; then
+  if [[ "$event_status" = "success" ]]; then
     echo "Received status 'success' for Event ID $EVENT_ID"
     exit 0
-  elif [ "$event_status" = "error" ]; then
+  elif [[ "$event_status" = "error" ]]; then
     echo "Received status 'error' Event ID $EVENT_ID"
     exit 1
   fi
@@ -72,6 +72,6 @@ done
 
 echo "Reached maximum number of event polling attempts $EVENT_STATUS_POLL_MAX_ATTEMPTS with an interval of $EVENT_STATUS_POLL_INTERVAL"
 
-if [ "$EVENT_FAIL_ON_VERIFY_TIMEOUT" = "1" ]; then
+if [[ "$EVENT_FAIL_ON_VERIFY_TIMEOUT" = "1" ]]; then
   exit 1
 fi
