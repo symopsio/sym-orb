@@ -64,6 +64,7 @@ do
     exit 1
   fi
 
+  echo [[ "$event_status" = "success" ]]
   echo "Received status '$event_status' for Event ID $EVENT_ID"
   sleep "$EVENT_STATUS_POLL_INTERVAL"
 
