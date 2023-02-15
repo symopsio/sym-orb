@@ -1,13 +1,13 @@
 description: >
-  Validates that an event succeeded by polling the Sym Events API until we receive an event status of success or error.
-  The command will fail if an error status is received.
+  Validates that an Event succeeded by polling the Sym Events API until an Event status of 'success' or 'error' is received.
+  The command will fail if a status of 'error' is received.
   The environment variable SYM_JWT must be set for this orb to work.
   For instructions on how to generate a Sym Token, see: https://docs.symops.com/docs/using-bot-tokens
 parameters:
   event_id:
     type: string
     description: |
-      The ID of the Run to de-escalate. One of event_id or request_slug must be defined.
+      The ID of the Event to validate. One of event_id or both request_slug and event_name must be defined.
     default: ""
   request_slug:
     type: string
@@ -18,7 +18,7 @@ parameters:
   event_name:
     type: string
     description: |
-      The name of the event to poll. Valid values: 'request', 'deescalate'
+      The name of the Event to poll. Valid values: 'request', 'deescalate'
       One of event_id or both request_slug and event_name must be defined.
     default: ""
   sym_api_url:
@@ -36,7 +36,7 @@ parameters:
   fail_on_verify_timeout:
     type: boolean
     description: |
-        Whether to exit with an error if the verification of the event status
+        Whether to exit with an error if the verification of the Event status
         does not complete within the number of polling attempts.
     default: true
 steps:
