@@ -59,6 +59,7 @@ do
   fi
 
   echo "Received status '$event_status' for Event ID $EVENT_ID"
+  sleep "$EVENT_STATUS_POLL_INTERVAL"
 
   attempt=$((attempt + 1))
 done
