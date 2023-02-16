@@ -19,6 +19,12 @@ parameters:
     description: The URL to the Sym API.
     default: "https://api.symops.com/api/v1"
 steps:
+  - attach_workspace:
+      at: /tmp/workspace
+  - run:
+      name: Create sym directory
+      command: mkdir -p sym
+      working_directory: /tmp/workspace
   - run:
       environment:
         RUN_ID: <<parameters.run_id>>
@@ -26,3 +32,8 @@ steps:
         SYM_API_URL: <<parameters.sym_api_url>>
       name: De-escalate Sym Run
       command: <<include(scripts/deescalate.sh)>>
+      working_directory: /tmp/workspace
+  - persist_to_workspace:
+      root: /tmp/workspace
+      paths:
+        - sym/deescalates.json

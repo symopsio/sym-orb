@@ -38,13 +38,30 @@ REQUEST_BODY="$(jq --null-input \
   }'
 )"
 
-response=$(curl --fail-with-body -Ls -X POST "${SYM_API_URL}/events/deescalate" \
+RESPONSE_BODY=$(curl --fail-with-body -Ls -X POST "${SYM_API_URL}/events/deescalate" \
   --header "Authorization: Bearer ${SYM_JWT}" \
   --header "Content-Type: application/json" \
   --data "$REQUEST_BODY") || exit_code=$?
 
 if [[ -n $exit_code ]]; then
   echo "Sym API request failed!"
-  echo "Response: ${response}"
+  echo "Response: ${RESPONSE_BODY}"
   exit 1
+fi
+
+if [[ -n $REQUEST_SLUG ]]; then
+  pushd sym
+  echo "Response: $RESPONSE_BODY"
+  echo "Saving response body to $REQUEST_SLUG"
+  if [[ ! -f deescalates.json ]]; then
+    echo "{}" > deescalates.json
+  fi
+
+  jq \
+  --arg request_slug "$REQUEST_SLUG" \
+  --argjson response_body "$RESPONSE_BODY" \
+  '.+={($request_slug): $response_body}' deescalates.json > deescalates.tmp
+
+  mv deescalates.tmp deescalates.json
+  popd
 fi

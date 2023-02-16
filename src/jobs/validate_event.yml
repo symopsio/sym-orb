@@ -1,0 +1,51 @@
+description: >
+  Validates that an Event succeeded by polling the Sym Events API.
+
+docker:
+  - image: cimg/deploy:2023.02
+
+parameters:
+  event_id:
+    type: string
+    description: |
+      The ID of the Event to validate. One of event_id or both request_slug and event_name must be defined.
+    default: ""
+  request_slug:
+    type: string
+    description: |
+      The unique slug of a Request from a previous `sym/request` or `sym/deescalate` job in the workflow.
+      One of event_id or both request_slug and event_name must be defined.
+    default: ""
+  event_name:
+    type: string
+    description: |
+      The name of the Event to poll. Valid values: 'request', 'deescalate'
+      One of event_id or both request_slug and event_name must be defined.
+    default: ""
+  sym_api_url:
+    type: string
+    description: The URL to the Sym API.
+    default: "https://api.symops.com/api/v1"
+  max_poll_attempts:
+    type: integer
+    description: The maximum number of attempts to poll before giving up.
+    default: 30
+  poll_interval:
+    type: integer
+    description: The time in seconds to wait between polling attempts.
+    default: 5
+  fail_on_verify_timeout:
+    type: boolean
+    description: |
+        Whether to exit with an error if the verification of the Event status
+        does not complete within the number of polling attempts.
+    default: true
+steps:
+  - validate_event:
+      event_id: <<parameters.event_id>>
+      request_slug: <<parameters.request_slug>>
+      event_name: <<parameters.event_name>>
+      sym_api_url: <<parameters.sym_api_url>>
+      max_poll_attempts: <<parameters.max_poll_attempts>>
+      poll_interval: <<parameters.poll_interval>>
+      fail_on_verify_timeout: <<parameters.fail_on_verify_timeout>>

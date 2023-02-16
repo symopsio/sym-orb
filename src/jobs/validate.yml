@@ -2,7 +2,7 @@ description: >
   Validate that a Sym Run is approved.
 
 docker:
-  - image: cimg/deploy:2022.07
+  - image: cimg/deploy:2023.02
 
 parameters:
   run_id:
@@ -21,8 +21,6 @@ parameters:
     description: The URL to the Sym API.
     default: "https://api.symops.com/api/v1"
 steps:
-  - attach_workspace:
-      at: /tmp/workspace
   - validate:
       run_id: <<parameters.run_id>>
       request_slug: <<parameters.request_slug>>

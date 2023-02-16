@@ -1,0 +1,56 @@
+description: >
+  Validates that an Event succeeded by polling the Sym Events API until an Event status of 'success' or 'error' is received.
+  The command will fail if a status of 'error' is received.
+  The environment variable SYM_JWT must be set for this orb to work.
+  For instructions on how to generate a Sym Token, see: https://docs.symops.com/docs/using-bot-tokens
+parameters:
+  event_id:
+    type: string
+    description: |
+      The ID of the Event to validate. One of event_id or both request_slug and event_name must be defined.
+    default: ""
+  request_slug:
+    type: string
+    description: |
+      The unique slug of a Request from a previous `sym/request` or `sym/deescalate` job in the workflow.
+      One of event_id or both request_slug and event_name must be defined.
+    default: ""
+  event_name:
+    type: string
+    description: |
+      The name of the Event to poll. Valid values: 'request', 'deescalate'
+      One of event_id or both request_slug and event_name must be defined.
+    default: ""
+  sym_api_url:
+    type: string
+    description: The URL to the Sym API.
+    default: "https://api.symops.com/api/v1"
+  max_poll_attempts:
+    type: integer
+    description: The maximum number of attempts to poll before giving up.
+    default: 30
+  poll_interval:
+    type: integer
+    description: The time in seconds to wait between polling attempts.
+    default: 5
+  fail_on_verify_timeout:
+    type: boolean
+    description: |
+        Whether to exit with an error if the verification of the Event status
+        does not complete within the number of polling attempts.
+    default: true
+steps:
+  - attach_workspace:
+      at: /tmp/workspace
+  - run:
+      environment:
+        EVENT_ID: <<parameters.event_id>>
+        REQUEST_SLUG: <<parameters.request_slug>>
+        EVENT_NAME: <<parameters.event_name>>
+        SYM_API_URL: <<parameters.sym_api_url>>
+        EVENT_STATUS_POLL_MAX_ATTEMPTS: <<parameters.max_poll_attempts>>
+        EVENT_STATUS_POLL_INTERVAL: <<parameters.poll_interval>>
+        EVENT_FAIL_ON_VERIFY_TIMEOUT: <<parameters.fail_on_verify_timeout>>
+      name: Validate Sym Event Succeeded
+      command: <<include(scripts/validate_event.sh)>>
+      working_directory: /tmp/workspace

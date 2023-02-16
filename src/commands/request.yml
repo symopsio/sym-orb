@@ -33,6 +33,12 @@ parameters:
     description: The URL to the Sym API.
     default: "https://api.symops.com/api/v1"
 steps:
+  - attach_workspace:
+      at: /tmp/workspace
+  - run:
+      name: Create sym directory
+      command: mkdir -p sym
+      working_directory: /tmp/workspace
   - run:
       name: Collect context
       command: <<include(scripts/collect_context.sh)>>
@@ -46,3 +52,8 @@ steps:
         SYM_API_URL: <<parameters.sym_api_url>>
       name: Make Sym Request
       command: <<include(scripts/request.sh)>>
+      working_directory: /tmp/workspace
+  - persist_to_workspace:
+      root: /tmp/workspace
+      paths:
+        - sym/requests.json

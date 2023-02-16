@@ -21,6 +21,13 @@ workflows:
           request_slug: "request-test"
           sym_api_url: "https://api.staging.symops.com/api/v1"
           filters: *filters
+      - sym/validate_event:
+          request_slug: "request-test"
+          event_name: "request"
+          sym_api_url: "https://api.staging.symops.com/api/v1"
+          requires:
+            - sym/request
+          filters: *filters
       - wait_for_auto_approve:
           type: approval
           requires:
@@ -37,6 +44,13 @@ workflows:
           sym_api_url: "https://api.staging.symops.com/api/v1"
           requires:
             - sym/validate
+          filters: *filters
+      - sym/validate_event:
+          request_slug: "request-test"
+          event_name: "deescalate"
+          sym_api_url: "https://api.staging.symops.com/api/v1"
+          requires:
+            - sym/deescalate
           filters: *filters
       - orb-tools/pack:
           filters: *filters
