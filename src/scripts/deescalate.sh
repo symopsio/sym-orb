@@ -11,7 +11,7 @@ if ! command -v envsubst >/dev/null 2>&1; then
   $SUDO apt-get -qq -y install gettext-base
 fi
 
-REQUEST_SLUG=$(echo $REQUEST_SLUG | envsubst)
+REQUEST_SLUG=$(echo "$REQUEST_SLUG" | envsubst)
 
 if [[ -z $RUN_ID ]]; then
   # No Run ID, check for Request Slug

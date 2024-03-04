@@ -12,10 +12,10 @@ if ! command -v envsubst >/dev/null 2>&1; then
 fi
 
 echo "========================================================================"
-FLOW_SRN=$(echo $FLOW_SRN | envsubst)
-FLOW_INPUTS=$(echo $FLOW_INPUTS | envsubst)
-CONTEXT=$(echo $CONTEXT | envsubst)
-REQUEST_SLUG=$(echo $REQUEST_SLUG | envsubst)
+FLOW_SRN=$(echo "$FLOW_SRN" | envsubst)
+FLOW_INPUTS=$(echo "$FLOW_INPUTS" | envsubst)
+CONTEXT=$(echo "$CONTEXT" | envsubst)
+REQUEST_SLUG=$(echo "$REQUEST_SLUG" | envsubst)
 
 if [[ -z $CONTEXT ]] || [[ $CONTEXT == "{}" ]]; then
   # Check if there is a context file to load from if no parameter was specified
@@ -36,7 +36,7 @@ REQUEST_BODY="$(jq --null-input \
 )"
 
 echo "Request body:"
-echo $REQUEST_BODY
+echo "$REQUEST_BODY"
 
 RESPONSE_BODY=$(curl --fail-with-body -Ls -X POST "${SYM_API_URL}/events/request" \
   --header "Authorization: Bearer ${SYM_JWT}" \
