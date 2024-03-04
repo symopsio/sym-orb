@@ -1,8 +1,8 @@
 version: 2.1
 setup: true
 orbs:
-  orb-tools: circleci/orb-tools@12.0
-  shellcheck: circleci/shellcheck@3.1
+  orb-tools: circleci/orb-tools@12.1
+  shellcheck: circleci/shellcheck@3.2
 
 filters: &filters
   tags:
@@ -16,6 +16,7 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/review:
+          orb_name: sym
           filters: *filters
       - shellcheck/check:
           filters: *filters
@@ -23,6 +24,6 @@ workflows:
       - orb-tools/continue:
           pipeline_number: << pipeline.number >>
           vcs_type: << pipeline.project.type >>
-          orb_name: sym/sym
+          orb_name: sym
           requires: [orb-tools/lint, orb-tools/pack, orb-tools/review, shellcheck/check]
           filters: *filters
