@@ -11,7 +11,7 @@ if ! command -v envsubst >/dev/null 2>&1; then
   $SUDO apt-get -qq -y install gettext-base
 fi
 
-REQUEST_SLUG=$(echo $REQUEST_SLUG | envsubst)
+REQUEST_SLUG=$(echo "$REQUEST_SLUG" | envsubst)
 
 if [[ -z $EVENT_ID ]]; then
   # No Event ID, check for Request Slug and Event Name
@@ -54,7 +54,7 @@ do
     exit 1
   fi
 
-  event_status=$(echo $response | jq -r ".status")
+  event_status=$(echo "$response" | jq -r ".status")
 
   if [ "$event_status" = "success" ]; then
     echo "Received status 'success' for Event ID $EVENT_ID"
