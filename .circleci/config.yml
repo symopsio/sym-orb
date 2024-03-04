@@ -1,8 +1,8 @@
 version: 2.1
 setup: true
 orbs:
-  orb-tools: circleci/orb-tools@12.0
-  shellcheck: circleci/shellcheck@3.1
+  orb-tools: circleci/orb-tools@12.1
+  shellcheck: circleci/shellcheck@3.2
 
 filters: &filters
   tags:
@@ -16,6 +16,7 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/review:
+          orb_name: sym/sym
           filters: *filters
       - shellcheck/check:
           filters: *filters
