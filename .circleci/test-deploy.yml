@@ -19,20 +19,9 @@ release-filters: &release-filters
   tags:
     only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 
-
-jobs:
-  command-test:
-    docker:
-      - image: cimg/base:current
-    steps:
-      - checkout
-      # Run your orb's commands to validate them.
-
 workflows:
   test-deploy:
     jobs:
-      - command-test:
-          filters: *filters
       - sym/request:
           flow_srn: "e2e-testing:flow:approval_orb_strategy:latest"
           flow_inputs: '{
@@ -43,8 +32,6 @@ workflows:
           }'
           request_slug: "request-test"
           sym_api_url: "https://api.staging.symops.com/api/v1"
-          requires:
-            - command-test
           filters: *filters
       - sym/validate_event:
           request_slug: "request-test"
