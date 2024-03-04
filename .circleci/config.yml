@@ -16,7 +16,7 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/review:
-          orb_name: sym/sym
+          orb_name: sym
           filters: *filters
       - shellcheck/check:
           filters: *filters
